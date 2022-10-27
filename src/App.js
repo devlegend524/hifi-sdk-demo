@@ -1,11 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import HR from './component/HR';
+import Main from './Main';
 
 function App() {
   return (
     <div className="App">
-      <HR />
+      <Main />
     </div>
   );
 }
