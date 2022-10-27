@@ -1,8 +1,7 @@
 import React from 'react'
 import logo from './asset/images/logo_small.png'
-import ImageCard from './component/ImageCard'
+import SlideCarousel from './component/SlideCarousel'
 
-import card1 from './asset/images/card1.png'
 export default function Main() {
   return (
     <div className="flex flex-col gap-3 items-center">
@@ -10,7 +9,7 @@ export default function Main() {
         <p className="text-[36px] text-white">
             Play with friends, explore web3 games
         </p>
-        <ImageCard src={card1} width={358} height={246} title="Earn Collectible HIFI Competition" titleWidth={150}/>
+        <SlideCarousel />
     </div>
   )
 }
