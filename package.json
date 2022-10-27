@@ -1,6 +1,6 @@
 {
   "name": "hifisdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "babel": {
     "presets": [
@@ -8,9 +8,12 @@
     ]
   },
   "dependencies": {
+    "autoprefixer": "^10.4.12",
+    "postcss": "^8.4.17",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.1",
+    "tailwindcss": "^3.1.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -18,7 +21,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "publish:npm": "rd /s /q dist && mkdir dist &&  babel src/component -d dist/component --copy-files && babel src/asset -d dist/asset --copy-files"
+    "publish:npm": "rd /s /q dist && mkdir dist &&  babel src/component -d dist/component --copy-files && babel src/asset -d dist/asset --copy-files && babel src/helpers -d dist/helpers --copy-files"
   },
   "eslintConfig": {
     "extends": [
