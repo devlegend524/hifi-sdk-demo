@@ -1,5 +1,6 @@
 import React from 'react'
 import logo from './asset/images/logo_small.png'
+import MainContainer from './component/MainContainer'
 import SlideCarousel from './component/SlideCarousel'
 
 export default function Main() {
@@ -10,6 +11,9 @@ export default function Main() {
             Play with friends, explore web3 games
         </p>
         <SlideCarousel />
+        <MainContainer>
+            
+        </MainContainer>
     </div>
   )
 }

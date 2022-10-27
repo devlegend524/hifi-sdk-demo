@@ -1,7 +1,13 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Button from "@mui/material/Button";
+
+import { TbBox } from "react-icons/tb";
+import { ReactComponent as IconStatus } from "../asset/icons/status.svg";
+import { ReactComponent as IconType } from "../asset/icons/type.svg";
+import { ReactComponent as IconTrending } from "../asset/icons/trending.svg";
 
 import "./index.css";
 import ImageCard from "./ImageCard";
@@ -11,10 +17,13 @@ import card3 from "../asset/images/card3.png";
 import card4 from "../asset/images/card4.png";
 
 export default function SlideCarousel() {
+  const [status, setStatus] = useState(0);
+
   const cardWidth = 358;
   const cardHeight = 246;
   const titleWidth = 150;
   const title = "Earn Collectible HIFI Competition";
+  let miniMode = 0;
 
   const leftClick = (e) => {
     let lastItem;
@@ -53,6 +62,7 @@ export default function SlideCarousel() {
     let margin = 1 / 4;
     let middle = totalWidth / 2;
     let mid = (countCard - 1) / 2;
+
     for (let i = 0; i < countCard; i++) {
       let val = Math.abs(mid - i);
       let scaleVal = 1 - scale * val;
@@ -75,18 +85,74 @@ export default function SlideCarousel() {
 
     let leftButton = document.getElementById("carouselLeftButton");
     let rightButton = document.getElementById("carouselRightButton");
-  
-    leftButton.style.top = `${cardHeight/2 - buttonWidth/2}px`;
-    leftButton.style.left = `${middle - cardWidth/2}px`;
+
+    leftButton.style.top = `${cardHeight / 2 - buttonWidth / 2}px`;
+    leftButton.style.left = `${middle - cardWidth / 2}px`;
     leftButton.style.zIndex = "4";
 
-    rightButton.style.top = `${cardHeight/2 - buttonWidth/2}px`;
-    rightButton.style.left = `${middle + cardWidth/2 - buttonWidth}px`;
+    rightButton.style.top = `${cardHeight / 2 - buttonWidth / 2}px`;
+    rightButton.style.left = `${middle + cardWidth / 2 - buttonWidth}px`;
     rightButton.style.zIndex = "4";
 
-  };
-  window.addEventListener("resize", adjustItems);
+    let statusWidth = 120;
+    let statusHeight = 252;
+    let toggleStatusButton = document.getElementById("toggleStatusButton");
+    let statusButton = document.getElementsByClassName("statusButton");
 
+    let statusLeft =
+      middle +
+      (margin * mid - 1 / 2 + (mid * scale) / 2) * cardWidth +
+      cardWidth * (1 - scale) -
+      statusWidth;
+    if (statusLeft + statusWidth > totalWidth) {
+      toggleStatusButton.style.opacity = "1";
+      statusHeight = 212;
+      statusLeft = totalWidth - statusWidth;
+      miniMode = 1;
+    } else {
+      toggleStatusButton.style.opacity = "0";
+      for (let i = 0; i < statusButton.length; i++) {
+        statusButton[i].style.opacity = "1";
+      }
+      miniMode = 0;
+    }
+
+    let statusButtons = document.getElementById("statusButtons");
+    statusButtons.style.top = `${(cardHeight - statusHeight) / 2}px`;
+    statusButtons.style.left = `${statusLeft}px`;
+    statusButtons.style.zIndex = "5";
+    
+  };
+
+  const adjustItemsMobile = () => {
+    adjustItems();
+    let statusButton = document.getElementsByClassName("statusButton");
+    for (let i = 0; i < statusButton.length; i++) {
+        if (status === 0 && miniMode === 1) statusButton[i].style.opacity = "0";
+    }
+  }
+  window.addEventListener("resize", adjustItemsMobile);
+
+  const toggleStatusButtons = (e) => {
+    if (status === 0) {
+  
+      let statusButton = document.getElementsByClassName("statusButton");
+      for (let i = 0; i < statusButton.length; i++) {
+        statusButton[i].style.opacity = "1";
+      }
+
+      document.getElementById("toggleStatusButton").firstChild.data = "-";   
+      setStatus(1);
+    } else {
+      document.getElementById("toggleStatusButton").firstChild.data = "+";
+
+      let statusButton = document.getElementsByClassName("statusButton");
+      for (let i = 0; i < statusButton.length; i++) {
+        statusButton[i].style.opacity = "0";
+      }
+      setStatus(0);
+    }
+  };
   useEffect(() => {
     const interval = setInterval(() => {
       rightClick();
@@ -96,7 +162,7 @@ export default function SlideCarousel() {
   }, []);
 
   useEffect(() => {
-    adjustItems();
+    adjustItemsMobile();
   });
   return (
     <div className="relative w-[100%]" id="CarouselContainer">
@@ -173,6 +239,85 @@ export default function SlideCarousel() {
           titleWidth={titleWidth}
         />
       </div>
+      <div
+        className="absolute flex flex-col w-[120px] gap-1 items-end"
+        id="statusButtons"
+      >
+        <button
+          id="toggleStatusButton"
+          type="button"
+          className="w-[40px] h-[40px] text-white text-[20px] font-bold rounded-[30px] bg-[#A11692] mb-[10px]"
+          style={{ boxShadow: "0px 2px 3px #aaaaaa" }}
+          onClick={(e) => toggleStatusButtons(e)}
+        >
+          +
+        </button>
+        <Button
+          className="statusButton"
+          variant="outlined"
+          startIcon={<IconTrending />}
+          style={styles.button}
+          sx={{
+            "&:hover": {
+              borderColor: "#1976d2 !important",
+            },
+          }}
+        >
+          Trending
+        </Button>
+        <Button
+          className="statusButton"
+          variant="outlined"
+          startIcon={<IconStatus />}
+          style={styles.button}
+          sx={{
+            "&:hover": {
+              borderColor: "#1976d2 !important",
+            },
+          }}
+        >
+          Status
+        </Button>
+        <Button
+          className="statusButton"
+          variant="outlined"
+          startIcon={<IconType />}
+          style={styles.button}
+          sx={{
+            "&:hover": {
+              borderColor: "#1976d2 !important",
+            },
+          }}
+        >
+          Type
+        </Button>
+        <Button
+          className="statusButton"
+          variant="outlined"
+          startIcon={<TbBox />}
+          style={styles.button}
+          sx={{
+            "&:hover": {
+              borderColor: "#1976d2 !important",
+            },
+          }}
+        >
+          Customer
+        </Button>
+      </div>
     </div>
   );
 }
+
+const styles = {
+  button: {
+    backgroundColor: "#000000",
+    borderColor: "#000000",
+    color: "white",
+    borderRadius: "20px",
+    paddingLeft: "14px",
+    paddingRight: "10px",
+    fontSize: "14px",
+    textTransform: "none",
+  },
+};
