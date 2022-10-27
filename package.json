@@ -1,0 +1,45 @@
+{
+  "name": "hifisdk",
+  "version": "0.1.0",
+  "private": false,
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ]
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "publish:npm": "rd /s /q dist && mkdir dist &&  babel src/component -d dist/component --copy-files && babel src/asset -d dist/asset --copy-files"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/preset-react": "^7.18.6"
+  }
+}
