@@ -2,16 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-.carouselCard{
+.carouselCard {
     transition: left 1.5s;
     position: absolute;
 }
-.carouselButton{
+
+.carouselButton {
     background-color: white;
-    width:50px;
-    height:50px;
+    width: 50px;
+    height: 50px;
     padding: 12px;
     border-radius: 30px;
-    position: absolute; 
+    position: absolute;
     cursor: pointer;
+}
+
+.podiumContainer {
+    display: block;
+}
+
+.scoreBoardAvatar {
+    width: 120px;
+    height: 120px;
+}
+.scoreBoardAvatarContainer {
+    flex-grow: 0;
+}
+@media only screen and (max-width: 600px) {
+    .podiumContainer {
+        display: none;
+    }
+    .scoreBoardAvatarContainer {
+        flex-grow: 1;
+    }
+    .scoreBoardAvatar {
+        width: 160px;
+        height: 160px;
+    }
 }
