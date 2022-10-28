@@ -165,10 +165,10 @@ export default function SlideCarousel() {
     adjustItemsMobile();
   });
   return (
-    <div className="relative w-[100%]" id="CarouselContainer">
+    <div style={{position: 'relative', width: '100%'}} id="CarouselContainer">
       <div
         id="carouselLeftButton"
-        className="absolute carouselButton cursor-pointer"
+        className="carouselButton"
         onClick={(event) => leftClick(event)}
       >
         <ArrowBackIcon
@@ -182,7 +182,7 @@ export default function SlideCarousel() {
       </div>
       <div
         id="carouselRightButton"
-        className="absolute carouselButton cursor-pointer"
+        className="carouselButton"
         onClick={(event) => rightClick(event)}
       >
         <ArrowForwardIcon
@@ -194,7 +194,7 @@ export default function SlideCarousel() {
           }}
         />
       </div>
-      <div className="absolute carouselCard">
+      <div className="carouselCard">
         <ImageCard
           src={card1}
           width={cardWidth}
@@ -203,7 +203,7 @@ export default function SlideCarousel() {
           titleWidth={titleWidth}
         />
       </div>
-      <div className="absolute carouselCard">
+      <div className="carouselCard">
         <ImageCard
           src={card2}
           width={cardWidth}
@@ -212,7 +212,7 @@ export default function SlideCarousel() {
           titleWidth={titleWidth}
         />
       </div>
-      <div className="absolute carouselCard">
+      <div className="carouselCard">
         <ImageCard
           src={card3}
           width={cardWidth}
@@ -221,7 +221,7 @@ export default function SlideCarousel() {
           titleWidth={titleWidth}
         />
       </div>
-      <div className="absolute carouselCard">
+      <div className="carouselCard">
         <ImageCard
           src={card4}
           width={cardWidth}
@@ -230,7 +230,7 @@ export default function SlideCarousel() {
           titleWidth={titleWidth}
         />
       </div>
-      <div className="absolute carouselCard">
+      <div className="carouselCard">
         <ImageCard
           src={card1}
           width={cardWidth}
@@ -240,14 +240,13 @@ export default function SlideCarousel() {
         />
       </div>
       <div
-        className="absolute flex flex-col w-[120px] gap-1 items-end"
+        style={{position: 'absolute', display: 'flex', flexDirection: 'column', width: '120px', gap: '0.25rem', alignItems: 'flex-end'}}
         id="statusButtons"
       >
         <button
           id="toggleStatusButton"
           type="button"
-          className="w-[40px] h-[40px] text-white text-[20px] font-bold rounded-[30px] bg-[#A11692] mb-[10px]"
-          style={{ boxShadow: "0px 2px 3px #aaaaaa" }}
+          style={{ boxShadow: "0px 2px 3px #aaaaaa" , width: '40px', height: '40px', color: 'white', fontSize: '20px', fontWeight: '700', borderRadius: '30px', backgroundColor: '#A11692', marginBottom: '10px'}}
           onClick={(e) => toggleStatusButtons(e)}
         >
           +

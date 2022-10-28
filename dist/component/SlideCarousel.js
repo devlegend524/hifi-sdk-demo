@@ -129,11 +129,14 @@ export default function SlideCarousel() {
     adjustItemsMobile();
   });
   return /*#__PURE__*/React.createElement("div", {
-    className: "relative w-[100%]",
+    style: {
+      position: 'relative',
+      width: '100%'
+    },
     id: "CarouselContainer"
   }, /*#__PURE__*/React.createElement("div", {
     id: "carouselLeftButton",
-    className: "absolute carouselButton cursor-pointer",
+    className: "carouselButton",
     onClick: event => leftClick(event)
   }, /*#__PURE__*/React.createElement(ArrowBackIcon, {
     sx: {
@@ -144,7 +147,7 @@ export default function SlideCarousel() {
     }
   })), /*#__PURE__*/React.createElement("div", {
     id: "carouselRightButton",
-    className: "absolute carouselButton cursor-pointer",
+    className: "carouselButton",
     onClick: event => rightClick(event)
   }, /*#__PURE__*/React.createElement(ArrowForwardIcon, {
     sx: {
@@ -154,7 +157,7 @@ export default function SlideCarousel() {
       color: "#120b16"
     }
   })), /*#__PURE__*/React.createElement("div", {
-    className: "absolute carouselCard"
+    className: "carouselCard"
   }, /*#__PURE__*/React.createElement(ImageCard, {
     src: card1,
     width: cardWidth,
@@ -162,7 +165,7 @@ export default function SlideCarousel() {
     title: title,
     titleWidth: titleWidth
   })), /*#__PURE__*/React.createElement("div", {
-    className: "absolute carouselCard"
+    className: "carouselCard"
   }, /*#__PURE__*/React.createElement(ImageCard, {
     src: card2,
     width: cardWidth,
@@ -170,7 +173,7 @@ export default function SlideCarousel() {
     title: title,
     titleWidth: titleWidth
   })), /*#__PURE__*/React.createElement("div", {
-    className: "absolute carouselCard"
+    className: "carouselCard"
   }, /*#__PURE__*/React.createElement(ImageCard, {
     src: card3,
     width: cardWidth,
@@ -178,7 +181,7 @@ export default function SlideCarousel() {
     title: title,
     titleWidth: titleWidth
   })), /*#__PURE__*/React.createElement("div", {
-    className: "absolute carouselCard"
+    className: "carouselCard"
   }, /*#__PURE__*/React.createElement(ImageCard, {
     src: card4,
     width: cardWidth,
@@ -186,7 +189,7 @@ export default function SlideCarousel() {
     title: title,
     titleWidth: titleWidth
   })), /*#__PURE__*/React.createElement("div", {
-    className: "absolute carouselCard"
+    className: "carouselCard"
   }, /*#__PURE__*/React.createElement(ImageCard, {
     src: card1,
     width: cardWidth,
@@ -194,14 +197,28 @@ export default function SlideCarousel() {
     title: title,
     titleWidth: titleWidth
   })), /*#__PURE__*/React.createElement("div", {
-    className: "absolute flex flex-col w-[120px] gap-1 items-end",
+    style: {
+      position: 'absolute',
+      display: 'flex',
+      flexDirection: 'column',
+      width: '120px',
+      gap: '0.25rem',
+      alignItems: 'flex-end'
+    },
     id: "statusButtons"
   }, /*#__PURE__*/React.createElement("button", {
     id: "toggleStatusButton",
     type: "button",
-    className: "w-[40px] h-[40px] text-white text-[20px] font-bold rounded-[30px] bg-[#A11692] mb-[10px]",
     style: {
-      boxShadow: "0px 2px 3px #aaaaaa"
+      boxShadow: "0px 2px 3px #aaaaaa",
+      width: '40px',
+      height: '40px',
+      color: 'white',
+      fontSize: '20px',
+      fontWeight: '700',
+      borderRadius: '30px',
+      backgroundColor: '#A11692',
+      marginBottom: '10px'
     },
     onClick: e => toggleStatusButtons(e)
   }, "+"), /*#__PURE__*/React.createElement(Button, {

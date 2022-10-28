@@ -8,23 +8,29 @@ export default function ImageCard(props) {
     titleWidth
   } = props;
   return /*#__PURE__*/React.createElement("div", {
-    className: "relative rounded-[24px]",
     style: {
       background: "linear-gradient(#120b16 0 0) padding-box, linear-gradient(to right, #d629f5, #2734fe) border-box",
-      border: "4px solid transparent"
+      border: "4px solid transparent",
+      position: "relative",
+      borderRadius: "24px"
     }
   }, /*#__PURE__*/React.createElement("img", {
     src: src,
-    className: "rounded-[18px]",
     style: {
       width: `${width}px`,
-      height: `${height}px`
+      height: `${height}px`,
+      borderRadius: "18px"
     },
     alt: "Card Image"
   }), /*#__PURE__*/React.createElement("p", {
-    className: "absolute bottom-[8px] left-[16px] text-[18px] text-gray-200 font-bold",
     style: {
-      width: `${titleWidth}px`
+      width: `${titleWidth}px`,
+      position: "absolute",
+      bottom: "8px",
+      left: "16px",
+      fontSize: "18px",
+      color: "white",
+      fontWeight: "700"
     }
   }, title));
 }

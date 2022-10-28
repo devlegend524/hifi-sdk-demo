@@ -4,6 +4,7 @@
 
 .carouselCard{
     transition: left 1.5s;
+    position: absolute;
 }
 .carouselButton{
     background-color: white;
@@ -11,4 +12,6 @@
     height:50px;
     padding: 12px;
     border-radius: 30px;
+    position: absolute; 
+    cursor: pointer;
 }
