@@ -25,11 +25,11 @@
     background-color: #01441e;
 }
 
-.participatingButton{
+.participatingButton {
     background-color: #f70a65;
 }
 
-.participatingButton:hover{
+.participatingButton:hover {
     background-color: #790330;
 }
 
@@ -37,9 +37,17 @@
     display: block;
 }
 
-.scoreBoardAvatar {
+.dashboardAvatar {
     width: 120px;
     height: 120px;
+}
+
+.scoreBoardContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.scoreBoardWrapper:hover {
+    background-color: #5e57e6
 }
 
 @media only screen and (max-width: 600px) {
@@ -47,11 +55,11 @@
         display: none;
     }
 
-    .scoreBoardAvatarContainer {
+    .dashboardAvatarContainer {
         flex-grow: 1;
     }
 
-    .scoreBoardAvatar {
+    .dashboardAvatar {
         width: 160px;
         height: 160px;
     }

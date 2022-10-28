@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import GameTitle from "./GameTitle";
+import Dashboard from "./Dashboard";
 import ScoreBoard from "./ScoreBoard";
 import "./index.css";
 
@@ -27,7 +28,7 @@ export default function MainContainer() {
       }}
     >
       <GameTitle />
-      <ScoreBoard />
+      <Dashboard />
       <div
         style={{
           display: "flex",
@@ -36,6 +37,7 @@ export default function MainContainer() {
           color: "white",
           gap: "20px",
           justifyContent: "center",
+          marginBottom: '10px'
         }}
       >
         <button
@@ -55,6 +57,7 @@ export default function MainContainer() {
           Participating
         </button>
       </div>
+      {isStanding ? <ScoreBoard />: ""}
     </div>
   );
 }
