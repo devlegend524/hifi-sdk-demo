@@ -3,13 +3,18 @@ import { useState } from "react";
 import GameTitle from "./GameTitle";
 import Dashboard from "./Dashboard";
 import ScoreBoard from "./ScoreBoard";
+import GameBoard from "./GameBoard";
 import "./index.css";
 
 export default function MainContainer() {
   const [isStanding, setIsStanding] = useState(0);
+  const [isParticipating, setIsParticipating] = useState(0);
   const handleStandingButton = () => {
     setIsStanding(1 - isStanding);
-  };
+  }
+  const handleParticipatingButton = () => {
+    setIsParticipating(1-isParticipating);
+  }
   return (
     <div
       style={{
@@ -27,37 +32,45 @@ export default function MainContainer() {
         gap: "0.75rem",
       }}
     >
-      <GameTitle />
-      <Dashboard />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          fontSize: "20px",
-          color: "white",
-          gap: "20px",
-          justifyContent: "center",
-          marginBottom: '10px'
-        }}
-      >
-        <button
-          className="viewStandingButton"
-          style={{ borderRadius: "4px", padding: "4px 8px" }}
-          onClick={(e) => handleStandingButton(e)}
-        >
-          {isStanding ? "View Standing" : "Hide Standing"}
-        </button>
-        <button
-          className="participatingButton"
-          style={{
-            borderRadius: "4px",
-            padding: "4px 8px",
-          }}
-        >
-          Participating
-        </button>
-      </div>
-      {isStanding ? <ScoreBoard />: ""}
+      {isParticipating ? (
+        <GameBoard callback={handleParticipatingButton}/>
+      ) : (
+        <>
+          <GameTitle />
+          <Dashboard />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              fontSize: "20px",
+              color: "white",
+              gap: "20px",
+              justifyContent: "center",
+              marginBottom: "10px",
+            }}
+          >
+            <button
+              className="viewStandingButton"
+              style={{ borderRadius: "4px", padding: "4px 8px" }}
+              onClick={(e) => handleStandingButton(e)}
+            >
+              {isStanding ? "View Standing" : "Hide Standing"}
+            </button>
+            <button
+              className="participatingButton"
+              style={{
+                borderRadius: "4px",
+                padding: "4px 8px",
+              }}
+              onClick={(e) => handleParticipatingButton(e)}
+            >
+              Participating
+            </button>
+          </div>
+        </>
+      )}
+
+      {isStanding ? <ScoreBoard /> : ""}
     </div>
   );
 }
