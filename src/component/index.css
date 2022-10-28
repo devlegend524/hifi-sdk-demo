@@ -17,6 +17,22 @@
     cursor: pointer;
 }
 
+.viewStandingButton {
+    background-color: #08bf57;
+}
+
+.viewStandingButton:hover {
+    background-color: #01441e;
+}
+
+.participatingButton{
+    background-color: #f70a65;
+}
+
+.participatingButton:hover{
+    background-color: #790330;
+}
+
 .podiumContainer {
     display: block;
 }
@@ -25,16 +41,16 @@
     width: 120px;
     height: 120px;
 }
-.scoreBoardAvatarContainer {
-    flex-grow: 0;
-}
+
 @media only screen and (max-width: 600px) {
     .podiumContainer {
         display: none;
     }
+
     .scoreBoardAvatarContainer {
         flex-grow: 1;
     }
+
     .scoreBoardAvatar {
         width: 160px;
         height: 160px;

@@ -1,11 +1,12 @@
 import React from "react";
+import { v4 as uuid_v4 } from "uuid";
 import card1 from "../asset/images/card1.png";
 import podiumImage from "../asset/images/hifiPodium.png";
 import TopPlayerCard from "./TopPlayerCard";
-import game1 from '../asset/images/game1.png';
-import game2 from '../asset/images/game2.png';
-import game3 from '../asset/images/game3.png';
-import './index.css';
+import game1 from "../asset/images/game1.png";
+import game2 from "../asset/images/game2.png";
+import game3 from "../asset/images/game3.png";
+import "./index.css";
 
 const prizePoolData = [
   {
@@ -45,9 +46,14 @@ const prizePoolData = [
   },
 ];
 export default function ScoreBoard() {
+  const participants = 35;
+  const position = 34;
   return (
     <div style={{ display: "flex", flexDirection: "row", gap: "0.75rem" }}>
-      <div className="scoreBoardAvatarContainer">
+      <div
+        className="scoreBoardAvatarContainer"
+        style={{ display: "flex", flexDirection: "column", color: "white" }}
+      >
         <img
           src={card1}
           style={{
@@ -57,6 +63,17 @@ export default function ScoreBoard() {
           }}
           className="scoreBoardAvatar"
         ></img>
+        <div style={{marginTop: '10px'}}>
+          <p style={{ fontSize: "16px", margin: 'auto', fontWeight: "700" }}>
+            Stats
+          </p>
+          <p style={{ fontSize: "12px", fontWeight: "400" }}>
+            Participants&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{participants}</b>
+          </p>
+          <p style={{ fontSize: "12px", fontWeight: "400" }}>
+            Your Position&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{position}</b>
+          </p>
+        </div>
       </div>
       <div
         style={{
@@ -72,6 +89,7 @@ export default function ScoreBoard() {
         {prizePoolData.map((data) => {
           return (
             <div
+              key={uuid_v4()}
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
@@ -124,15 +142,27 @@ export default function ScoreBoard() {
           flexDirection: "column",
           gap: "5px",
           alignItems: "flex-end",
-          flexGrow: '1'
+          flexGrow: "1",
         }}
       >
         <p style={{ color: "white", fontSize: "16px", fontWeight: "700" }}>
           Competition Games
         </p>
-        <img src={game1} style={{width: '120px', height: '90px', borderRadius: '5px'}} alt="game1"/>
-        <img src={game2} style={{width: '120px', height: '90px', borderRadius: '5px'}} alt="game1"/>
-        <img src={game3} style={{width: '120px', height: '90px', borderRadius: '5px'}} alt="game1"/>
+        <img
+          src={game1}
+          style={{ width: "120px", height: "90px", borderRadius: "5px" }}
+          alt="game1"
+        />
+        <img
+          src={game2}
+          style={{ width: "120px", height: "90px", borderRadius: "5px" }}
+          alt="game1"
+        />
+        <img
+          src={game3}
+          style={{ width: "120px", height: "90px", borderRadius: "5px" }}
+          alt="game1"
+        />
       </div>
     </div>
   );
