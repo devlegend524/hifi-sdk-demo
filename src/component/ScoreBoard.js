@@ -96,6 +96,7 @@ export default function ScoreBoard() {
       {scoreBoardResult.map((data) => {
         return (
           <div
+            key = {uuid_v4()}
             className="scoreBoardWrapper"
             style={{
               display: "grid",

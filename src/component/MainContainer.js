@@ -67,10 +67,10 @@ export default function MainContainer() {
               Participating
             </button>
           </div>
+          {isStanding ? <ScoreBoard /> : ""}
         </>
       )}
 
-      {isStanding ? <ScoreBoard /> : ""}
     </div>
   );
 }
