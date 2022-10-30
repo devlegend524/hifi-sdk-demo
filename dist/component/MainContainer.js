@@ -54,5 +54,5 @@ export default function MainContainer() {
       padding: "4px 8px"
     },
     onClick: e => handleParticipatingButton(e)
-  }, "Participating"))), isStanding ? /*#__PURE__*/React.createElement(ScoreBoard, null) : "");
+  }, "Participating")), isStanding ? /*#__PURE__*/React.createElement(ScoreBoard, null) : ""));
 }

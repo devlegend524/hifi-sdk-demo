@@ -79,6 +79,7 @@ export default function ScoreBoard() {
     }
   }, scoreBoardResult.map(data => {
     return /*#__PURE__*/React.createElement("div", {
+      key: uuid_v4(),
       className: "scoreBoardWrapper",
       style: {
         display: "grid",
