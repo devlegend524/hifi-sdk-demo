@@ -54,7 +54,7 @@ export default function MainContainer() {
               style={{ borderRadius: "4px", padding: "4px 8px" }}
               onClick={(e) => handleStandingButton(e)}
             >
-              {isStanding ? "View Standing" : "Hide Standing"}
+              {isStanding ? "Hide Standing" : "View Standing"}
             </button>
             <button
               className="participatingButton"

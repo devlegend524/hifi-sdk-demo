@@ -47,7 +47,7 @@ export default function MainContainer() {
       padding: "4px 8px"
     },
     onClick: e => handleStandingButton(e)
-  }, isStanding ? "View Standing" : "Hide Standing"), /*#__PURE__*/React.createElement("button", {
+  }, isStanding ? "Hide Standing" : "View Standing"), /*#__PURE__*/React.createElement("button", {
     className: "participatingButton",
     style: {
       borderRadius: "4px",
