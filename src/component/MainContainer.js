@@ -9,6 +9,8 @@ import "./index.css";
 export default function MainContainer() {
   const [isStanding, setIsStanding] = useState(0);
   const [isParticipating, setIsParticipating] = useState(0);
+  const [gameData, setGameData] = useState([]);
+  const [gameId, setGameId] = useState(1);
   const handleStandingButton = () => {
     setIsStanding(1 - isStanding);
   }
@@ -33,11 +35,11 @@ export default function MainContainer() {
       }}
     >
       {isParticipating ? (
-        <GameBoard callback={handleParticipatingButton}/>
+        <GameBoard callback={handleParticipatingButton} gameId = {gameId} gameData = { gameData} setGameId = {setGameId}/>
       ) : (
         <>
           <GameTitle />
-          <Dashboard />
+          <Dashboard setGameId = { setGameId } setGameData = { setGameData } gameData = { gameData } gameId = { gameId }/>
           <div
             style={{
               display: "flex",

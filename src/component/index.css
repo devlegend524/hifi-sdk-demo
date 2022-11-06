@@ -55,13 +55,32 @@
     height: 90px; 
     border-radius: 5px;
     cursor: pointer;
+    border-color: purple;
 }
 .gameBoardImage:hover{
     opacity: 0.6;
-    border-width: 2px;
-    border-color: purple;
+    border-width: 3px;
 }
+.playGameButton{
+    color: #e42575; 
+    padding: 8px 16px;
+    font-size: 18px;
+    border-radius:5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #e42575;
+    background-color: transparent;
+    font-weight: bold;
+    position: absolute;
+    left: 30px;
+    bottom: 30px;
 
+}
+.playGameButton:hover{
+    background-color: #e42575;
+    color: white;
+
+}
 @media only screen and (max-width: 630px) {
     .podiumContainer {
         display: none;

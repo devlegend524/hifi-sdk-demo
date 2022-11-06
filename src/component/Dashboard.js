@@ -7,9 +7,6 @@ import { API_URL, Game_URL } from "../config";
 import card1 from "../asset/images/card1.png";
 import podiumImage from "../asset/images/hifiPodium.png";
 import TopPlayerCard from "./TopPlayerCard";
-import game1 from "../asset/images/game1.png";
-import game2 from "../asset/images/game2.png";
-import game3 from "../asset/images/game3.png";
 import "./index.css";
 
 const prizePoolData = [
@@ -51,10 +48,9 @@ const prizePoolData = [
 ];
 const participants = 35;
 const position = 34;
-export default function Dashboard() {
-  const [gameData, setGameData] = useState([]);
+export default function Dashboard(props) {
+  const { setGameId, gameData, setGameData, gameId } = props;
   useEffect(() => {
-    console.log("hay");
     const fetchAPIGames = async () => {
       try {
         const resp = await apiFetchDataWithSig(
@@ -63,8 +59,6 @@ export default function Dashboard() {
           null,
           null
         );
-
-        console.log(resp.value);
         setGameData(resp.value);
       } catch (error) {
         console.log("failed to fetch games");
@@ -72,6 +66,11 @@ export default function Dashboard() {
     };
     fetchAPIGames();
   }, []);
+
+  const handleGameImageClick = (e, gameId) => {
+    e.preventDefault();
+    setGameId(gameId);
+  }
 
   return (
     <div style={{ display: "flex", flexDirection: "row", gap: "0.75rem" }}>
@@ -181,7 +180,9 @@ export default function Dashboard() {
               key = {uuid_v4()}
               src={`${Game_URL}/${data.img}`}
               className = "gameBoardImage"
+              style = {{ borderWidth: `${gameId === data.id? '3px': '0px'}`}}
               alt="game1"
+              onClick = {(e) => handleGameImageClick(e, data.id)}
             />
           );
         })}
