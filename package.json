@@ -36,7 +36,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "publish:npm": "rd /s /q dist && mkdir dist &&  babel src/component -d dist/component --copy-files && babel src/asset -d dist/asset --copy-files && babel src/helpers -d dist/helpers --copy-files && babel src/Main.js -d dist/"
+    "publish:npm": "rd /s /q dist && mkdir dist &&  babel src/component -d dist/component --copy-files && babel src/asset -d dist/asset --copy-files && babel src/helpers -d dist/helpers --copy-files && babel src/config -d dist/config --copy-files && babel src/Main.js -d dist/"
   },
   "eslintConfig": {
     "extends": [

@@ -1,5 +1,9 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuid_v4 } from "uuid";
+
+import { apiFetchDataWithSig } from "../helpers/apiFetchWrappers";
+import { API_URL, Game_URL } from "../config";
 import card1 from "../asset/images/card1.png";
 import podiumImage from "../asset/images/hifiPodium.png";
 import TopPlayerCard from "./TopPlayerCard";
@@ -45,9 +49,30 @@ const prizePoolData = [
     color: "#FFFFFF",
   },
 ];
+const participants = 35;
+const position = 34;
 export default function Dashboard() {
-  const participants = 35;
-  const position = 34;
+  const [gameData, setGameData] = useState([]);
+  useEffect(() => {
+    console.log("hay");
+    const fetchAPIGames = async () => {
+      try {
+        const resp = await apiFetchDataWithSig(
+          `ApiGame/GetGames`,
+          "GET",
+          null,
+          null
+        );
+
+        console.log(resp.value);
+        setGameData(resp.value);
+      } catch (error) {
+        console.log("failed to fetch games");
+      }
+    };
+    fetchAPIGames();
+  }, []);
+
   return (
     <div style={{ display: "flex", flexDirection: "row", gap: "0.75rem" }}>
       <div
@@ -63,12 +88,13 @@ export default function Dashboard() {
           }}
           className="dashboardAvatar"
         ></img>
-        <div style={{marginTop: '10px'}}>
-          <p style={{ fontSize: "16px", margin: 'auto', fontWeight: "700" }}>
+        <div style={{ marginTop: "10px" }}>
+          <p style={{ fontSize: "16px", margin: "auto", fontWeight: "700" }}>
             Stats
           </p>
           <p style={{ fontSize: "12px", fontWeight: "400" }}>
-            Participants&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{participants}</b>
+            Participants&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>{participants}</b>
           </p>
           <p style={{ fontSize: "12px", fontWeight: "400" }}>
             Your Position&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>{position}</b>
@@ -148,21 +174,17 @@ export default function Dashboard() {
         <p style={{ color: "white", fontSize: "16px", fontWeight: "700" }}>
           Competition Games
         </p>
-        <img
-          src={game1}
-          style={{ width: "120px", height: "90px", borderRadius: "5px" }}
-          alt="game1"
-        />
-        <img
-          src={game2}
-          style={{ width: "120px", height: "90px", borderRadius: "5px" }}
-          alt="game1"
-        />
-        <img
-          src={game3}
-          style={{ width: "120px", height: "90px", borderRadius: "5px" }}
-          alt="game1"
-        />
+
+        {gameData.map((data) => {
+          return (
+            <img
+              key = {uuid_v4()}
+              src={`${Game_URL}/${data.img}`}
+              className = "gameBoardImage"
+              alt="game1"
+            />
+          );
+        })}
       </div>
     </div>
   );
