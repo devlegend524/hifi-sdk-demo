@@ -1,11 +1,11 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuid_v4 } from "uuid";
+import { apiFetchDataWithSig } from "../helpers/apiFetchWrappers";
+import { API_URL, Game_URL } from "../config";
 import card1 from "../asset/images/card1.png";
 import podiumImage from "../asset/images/hifiPodium.png";
 import TopPlayerCard from "./TopPlayerCard";
-import game1 from "../asset/images/game1.png";
-import game2 from "../asset/images/game2.png";
-import game3 from "../asset/images/game3.png";
 import "./index.css";
 const prizePoolData = [{
   rank: "1st",
@@ -36,9 +36,31 @@ const prizePoolData = [{
   prize: "1Merits",
   color: "#FFFFFF"
 }];
-export default function Dashboard() {
-  const participants = 35;
-  const position = 34;
+const participants = 35;
+const position = 34;
+export default function Dashboard(props) {
+  const {
+    setGameId,
+    gameData,
+    setGameData,
+    gameId
+  } = props;
+  useEffect(() => {
+    const fetchAPIGames = async () => {
+      try {
+        const resp = await apiFetchDataWithSig(`ApiGame/GetGames`, "GET", null, null);
+        console.log(resp.value);
+        setGameData(resp.value);
+      } catch (error) {
+        console.log("failed to fetch games");
+      }
+    };
+    fetchAPIGames();
+  }, []);
+  const handleGameImageClick = (e, gameId) => {
+    e.preventDefault();
+    setGameId(gameId);
+  };
   return /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
@@ -62,12 +84,12 @@ export default function Dashboard() {
     className: "dashboardAvatar"
   }), /*#__PURE__*/React.createElement("div", {
     style: {
-      marginTop: '10px'
+      marginTop: "10px"
     }
   }, /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: "16px",
-      margin: 'auto',
+      margin: "auto",
       fontWeight: "700"
     }
   }, "Stats"), /*#__PURE__*/React.createElement("p", {
@@ -173,29 +195,16 @@ export default function Dashboard() {
       fontSize: "16px",
       fontWeight: "700"
     }
-  }, "Competition Games"), /*#__PURE__*/React.createElement("img", {
-    src: game1,
-    style: {
-      width: "120px",
-      height: "90px",
-      borderRadius: "5px"
-    },
-    alt: "game1"
-  }), /*#__PURE__*/React.createElement("img", {
-    src: game2,
-    style: {
-      width: "120px",
-      height: "90px",
-      borderRadius: "5px"
-    },
-    alt: "game1"
-  }), /*#__PURE__*/React.createElement("img", {
-    src: game3,
-    style: {
-      width: "120px",
-      height: "90px",
-      borderRadius: "5px"
-    },
-    alt: "game1"
+  }, "Competition Games"), gameData.map(data => {
+    return /*#__PURE__*/React.createElement("img", {
+      key: uuid_v4(),
+      src: `${Game_URL}/${data.img}`,
+      className: "gameBoardImage",
+      style: {
+        borderWidth: `${gameId === data.id ? '3px' : '0px'}`
+      },
+      alt: "game1",
+      onClick: e => handleGameImageClick(e, data.id)
+    });
   })));
 }

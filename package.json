@@ -1,6 +1,6 @@
 {
   "name": "hifisdkgames",
-  "version": "0.1.2",
+  "version": "0.1.11",
   "private": false,
   "babel": {
     "presets": [

@@ -8,6 +8,8 @@ import "./index.css";
 export default function MainContainer() {
   const [isStanding, setIsStanding] = useState(0);
   const [isParticipating, setIsParticipating] = useState(0);
+  const [gameData, setGameData] = useState([]);
+  const [gameId, setGameId] = useState(1);
   const handleStandingButton = () => {
     setIsStanding(1 - isStanding);
   };
@@ -29,8 +31,16 @@ export default function MainContainer() {
       gap: "0.75rem"
     }
   }, isParticipating ? /*#__PURE__*/React.createElement(GameBoard, {
-    callback: handleParticipatingButton
-  }) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(GameTitle, null), /*#__PURE__*/React.createElement(Dashboard, null), /*#__PURE__*/React.createElement("div", {
+    callback: handleParticipatingButton,
+    gameId: gameId,
+    gameData: gameData,
+    setGameId: setGameId
+  }) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(GameTitle, null), /*#__PURE__*/React.createElement(Dashboard, {
+    setGameId: setGameId,
+    setGameData: setGameData,
+    gameData: gameData,
+    gameId: gameId
+  }), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       flexDirection: "row",

@@ -350,12 +350,12 @@ export default function GameBoard(props) {
                 </IconButton>
               </Toolbar>
             </AppBar>
-            <Box
+            <div
               style={{
                 width: "100%",
                 height: "calc(100% - 65px)",
                 position: "relative",
-                marginTop: "65px",
+                marginTop: "0px",
               }}
             >
               {currentGame?.joystickImage === undefined ? (
@@ -389,7 +389,7 @@ export default function GameBoard(props) {
               >
                 Play
               </Button>
-            </Box>
+            </div>
           </Dialog>
         </>
       )}

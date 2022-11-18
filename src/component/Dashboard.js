@@ -59,6 +59,7 @@ export default function Dashboard(props) {
           null,
           null
         );
+        console.log(resp.value);
         setGameData(resp.value);
       } catch (error) {
         console.log("failed to fetch games");
