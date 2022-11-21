@@ -21,7 +21,7 @@ import Paper from "@material-ui/core/Paper";
 import Draggable from "react-draggable";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import { API_URL, Game_URL, MINIMUM_PLAY_FOR_REWARD } from "../config";
+import { API_URL, MINIMUM_PLAY_FOR_REWARD } from "../config";
 import { apiFetchDataWithSig } from "../helpers/apiFetchWrappers";
 import "./index.css";
 
@@ -317,7 +317,7 @@ export default function GameBoard(props) {
           return (
             <img
               key={uuid_v4()}
-              src={`${Game_URL}/${data.img}`}
+              src={`${API_URL}/${data.img}`}
               style={{ borderWidth: `${gameId === data.id ? "3px" : "0px"}` }}
               className="gameBoardImage"
               alt="game1"
@@ -361,7 +361,7 @@ export default function GameBoard(props) {
               {currentGame?.joystickImage === undefined ? (
                 <img
                   alt={`${currentGame?.title}`}
-                  src={`${Game_URL}/${keyImage}`}
+                  src={`${API_URL}/${keyImage}`}
                   style={{ width: "100%", height: "100%" }}
                 />
               ) : (
@@ -376,7 +376,7 @@ export default function GameBoard(props) {
                   </Button>
                   <img
                     alt={`${currentGame?.title}`}
-                    src={`${Game_URL}/${
+                    src={`${API_URL}/${
                       control === "key" ? currentGame?.joystickImage : keyImage
                     }`}
                     style={{ width: "100%", height: "100%" }}
@@ -427,7 +427,7 @@ export default function GameBoard(props) {
             <iframe
               className="gameframe"
               title={currentGame.title}
-              src={`${Game_URL}/Games/${
+              src={`${API_URL}/Games/${
                 currentGame.baseFilePath
               }?walletId=""&signature=""&game=${currentGame.bundleUrl}${
                 currentGame.runFile ? `&runfile=${currentGame.runFile}` : ""

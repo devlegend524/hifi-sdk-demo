@@ -14,7 +14,7 @@ export default function Main() {
       }}
     >
       <img src={logo} alt="logo image" style={{ width: "236px" }} />
-      <p style={{ fontSize: "36px", color: "white" }}>
+      <p style={{ fontSize: "36px", color: "white", textAlign: "center" }}>
         Play with friends, explore web3 games
       </p>
       <SlideCarousel />

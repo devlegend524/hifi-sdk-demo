@@ -17,6 +17,7 @@ export default function TopPlayerCard(props) {
         src={src}
         style={{ width: "40px", height: "40px", borderRadius: "30px" }}
         alter="top player image"
+        alt="top player"
       />
       <p>{name}</p>
       <p>{score}</p>

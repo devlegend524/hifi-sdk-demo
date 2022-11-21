@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { v4 as uuid_v4 } from "uuid";
 
 import { apiFetchDataWithSig } from "../helpers/apiFetchWrappers";
-import { API_URL, Game_URL } from "../config";
+import { API_URL } from "../config";
 import card1 from "../asset/images/card1.png";
 import podiumImage from "../asset/images/hifiPodium.png";
 import TopPlayerCard from "./TopPlayerCard";
@@ -87,6 +87,7 @@ export default function Dashboard(props) {
             borderWidth: "2px",
           }}
           className="dashboardAvatar"
+          alt="dashboardAvatar"
         ></img>
         <div style={{ marginTop: "10px" }}>
           <p style={{ fontSize: "16px", margin: "auto", fontWeight: "700" }}>
@@ -178,12 +179,12 @@ export default function Dashboard(props) {
         {gameData.map((data) => {
           return (
             <img
-              key = {uuid_v4()}
-              src={`${Game_URL}/${data.img}`}
-              className = "gameBoardImage"
-              style = {{ borderWidth: `${gameId === data.id? '3px': '0px'}`}}
+              key={uuid_v4()}
+              src={`${API_URL}/${data.img}`}
+              className="gameBoardImage"
+              style={{ borderWidth: `${gameId === data.id ? "3px" : "0px"}` }}
               alt="game1"
-              onClick = {(e) => handleGameImageClick(e, data.id)}
+              onClick={(e) => handleGameImageClick(e, data.id)}
             />
           );
         })}

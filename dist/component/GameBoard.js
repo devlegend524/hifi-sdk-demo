@@ -20,7 +20,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Paper from "@material-ui/core/Paper";
 import Draggable from "react-draggable";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { API_URL, Game_URL, MINIMUM_PLAY_FOR_REWARD } from "../config";
+import { API_URL, MINIMUM_PLAY_FOR_REWARD } from "../config";
 import { apiFetchDataWithSig } from "../helpers/apiFetchWrappers";
 import "./index.css";
 const useStyles = makeStyles(() => ({
@@ -281,7 +281,7 @@ export default function GameBoard(props) {
   }, gameData.map(data => {
     return /*#__PURE__*/React.createElement("img", {
       key: uuid_v4(),
-      src: `${Game_URL}/${data.img}`,
+      src: `${API_URL}/${data.img}`,
       style: {
         borderWidth: `${gameId === data.id ? "3px" : "0px"}`
       },
@@ -317,7 +317,7 @@ export default function GameBoard(props) {
     }
   }, currentGame?.joystickImage === undefined ? /*#__PURE__*/React.createElement("img", {
     alt: `${currentGame?.title}`,
-    src: `${Game_URL}/${keyImage}`,
+    src: `${API_URL}/${keyImage}`,
     style: {
       width: "100%",
       height: "100%"
@@ -327,7 +327,7 @@ export default function GameBoard(props) {
     className: "gameboardControlButton"
   }, control === "joy" ? "Joy Stick" : "Key Control"), /*#__PURE__*/React.createElement("img", {
     alt: `${currentGame?.title}`,
-    src: `${Game_URL}/${control === "key" ? currentGame?.joystickImage : keyImage}`,
+    src: `${API_URL}/${control === "key" ? currentGame?.joystickImage : keyImage}`,
     style: {
       width: "100%",
       height: "100%"
@@ -368,7 +368,7 @@ export default function GameBoard(props) {
   }, /*#__PURE__*/React.createElement("iframe", {
     className: "gameframe",
     title: currentGame.title,
-    src: `${Game_URL}/Games/${currentGame.baseFilePath}?walletId=""&signature=""&game=${currentGame.bundleUrl}${currentGame.runFile ? `&runfile=${currentGame.runFile}` : ""}`,
+    src: `${API_URL}/Games/${currentGame.baseFilePath}?walletId=""&signature=""&game=${currentGame.bundleUrl}${currentGame.runFile ? `&runfile=${currentGame.runFile}` : ""}`,
     width: "100%",
     height: "100%"
   })), currentGame && currentGame.gameType === 4 && /*#__PURE__*/React.createElement(Box, {

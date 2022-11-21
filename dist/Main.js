@@ -19,7 +19,8 @@ export default function Main() {
   }), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: "36px",
-      color: "white"
+      color: "white",
+      textAlign: "center"
     }
   }, "Play with friends, explore web3 games"), /*#__PURE__*/React.createElement(SlideCarousel, null), /*#__PURE__*/React.createElement(MainContainer, null));
 }

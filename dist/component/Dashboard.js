@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { v4 as uuid_v4 } from "uuid";
 import { apiFetchDataWithSig } from "../helpers/apiFetchWrappers";
-import { API_URL, Game_URL } from "../config";
+import { API_URL } from "../config";
 import card1 from "../asset/images/card1.png";
 import podiumImage from "../asset/images/hifiPodium.png";
 import TopPlayerCard from "./TopPlayerCard";
@@ -81,7 +81,8 @@ export default function Dashboard(props) {
       borderColor: "yellow",
       borderWidth: "2px"
     },
-    className: "dashboardAvatar"
+    className: "dashboardAvatar",
+    alt: "dashboardAvatar"
   }), /*#__PURE__*/React.createElement("div", {
     style: {
       marginTop: "10px"
@@ -198,10 +199,10 @@ export default function Dashboard(props) {
   }, "Competition Games"), gameData.map(data => {
     return /*#__PURE__*/React.createElement("img", {
       key: uuid_v4(),
-      src: `${Game_URL}/${data.img}`,
+      src: `${API_URL}/${data.img}`,
       className: "gameBoardImage",
       style: {
-        borderWidth: `${gameId === data.id ? '3px' : '0px'}`
+        borderWidth: `${gameId === data.id ? "3px" : "0px"}`
       },
       alt: "game1",
       onClick: e => handleGameImageClick(e, data.id)

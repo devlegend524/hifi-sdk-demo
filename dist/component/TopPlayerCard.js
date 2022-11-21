@@ -21,6 +21,7 @@ export default function TopPlayerCard(props) {
       height: "40px",
       borderRadius: "30px"
     },
-    alter: "top player image"
+    alter: "top player image",
+    alt: "top player"
   }), /*#__PURE__*/React.createElement("p", null, name), /*#__PURE__*/React.createElement("p", null, score));
 }
