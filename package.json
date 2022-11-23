@@ -1,6 +1,6 @@
 {
   "name": "hifisdkgames",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "private": false,
   "babel": {
     "presets": [
@@ -22,6 +22,7 @@
     "@mui/icons-material": "^5.10.6",
     "@mui/material": "^5.10.8",
     "autoprefixer": "^10.4.12",
+    "js-sha256": "^0.9.0",
     "postcss": "^8.4.17",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -29,6 +30,7 @@
     "react-icons": "^4.4.0",
     "react-scripts": "5.0.1",
     "tailwindcss": "^3.1.8",
+    "toastr": "^2.1.4",
     "uuid": "^9.0.0",
     "web-vitals": "^2.1.4"
   },

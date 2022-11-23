@@ -5,6 +5,9 @@ import clsx from "clsx";
 import Backdrop from "@material-ui/core/Backdrop";
 import { makeStyles } from "@material-ui/styles";
 
+import toastr from "toastr";
+import "toastr/build/toastr.min.css";
+
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
@@ -22,7 +25,7 @@ import Draggable from "react-draggable";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { API_URL, MINIMUM_PLAY_FOR_REWARD } from "../config";
-import { apiFetchDataWithSig } from "../helpers/apiFetchWrappers";
+import { apiFetchDataWithSig, fetchSDKApi } from "../helpers/apiFetchWrappers";
 import "./index.css";
 
 const useStyles = makeStyles(() => ({
@@ -54,10 +57,10 @@ function PaperComponent(props) {
 }
 
 export default function GameBoard(props) {
-  const { callback, gameData, gameId, setGameId } = props;
+  const { callback, gameData, gameId, setGameId, apiKey, playerId } = props;
   const [gameDataById, setGameDataById] = useState("");
 
-  const [playerId, setPlayerId] = useState(1);
+  // const [playerId, setPlayerId] = useState(1);
   const [open, setOpen] = useState(false);
   const [keyOpen, setKeyOpen] = useState(false);
   const [confirm_open, confirm_setOpen] = useState(false);
@@ -72,6 +75,12 @@ export default function GameBoard(props) {
   const [currentGame, setCurrentGame] = useState(null);
   const [keyImage, setKeyImage] = useState(null);
   const [sessionId, setSessionId] = useState(null);
+
+  // const handleErrorToast = (type, content) => {
+  //   if (type === "info") {
+  //     toastr.info(content);
+  //   }
+  // };
 
   const handleCloseBackdrop = () => {
     setLoading(false);
@@ -170,6 +179,20 @@ export default function GameBoard(props) {
     }, 1000);
     setElapsedTimeIntervalRef(interval);
 
+    if (apiKey === "" || apiKey === null) {
+      if (window.toastr) window.toastr.error("Please insert API key");
+      else {
+        toastr.options = {
+          positionClass: "toast-top-right",
+          hideDuration: 300,
+          timeOut: 60000,
+        };
+        toastr.clear();
+        setTimeout(() => toastr.success("Please insert API key"));
+        return;
+      }
+    }
+
     const options = {
       mode: "cors",
       body: JSON.stringify({ gameId, playerId: playerId }),
@@ -179,12 +202,27 @@ export default function GameBoard(props) {
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
 
-    const sessionIdResp = await apiFetchDataWithSig(
+    const sessionIdResp = await fetchSDKApi(
       "ApiPlay/StartGame",
       "POST",
       options,
-      headers
+      headers,
+      apiKey,
+      playerId
     );
+    if (sessionIdResp.text) {
+      if (window.toastr) window.toastr.error(`${sessionIdResp.text}`);
+      else {
+        toastr.options = {
+          positionClass: "toast-top-right",
+          hideDuration: 300,
+          timeOut: 60000,
+        };
+        toastr.clear();
+        setTimeout(() => toastr.error(`${sessionIdResp.text}`));
+        return;
+      }
+    }
     if (sessionIdResp) {
       setSessionId(sessionIdResp.sessionId);
     }
@@ -258,11 +296,13 @@ export default function GameBoard(props) {
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
 
-    const finishGameResponse = await apiFetchDataWithSig(
+    const finishGameResponse = await fetchSDKApi(
       "ApiPlay/FinishGame",
       "POST",
       options,
-      headers
+      headers,
+      apiKey,
+      playerId
     );
 
     if (totalPlayedTime < Number(minimumTimeToPlay) * 60) {
@@ -353,9 +393,10 @@ export default function GameBoard(props) {
             <div
               style={{
                 width: "100%",
-                height: "calc(100% - 65px)",
+                height: "100%",
+                // height: "calc(100% - 65px)",
                 position: "relative",
-                marginTop: "0px",
+                marginTop: "65px",
               }}
             >
               {currentGame?.joystickImage === undefined ? (
@@ -393,68 +434,73 @@ export default function GameBoard(props) {
           </Dialog>
         </>
       )}
-      <Dialog
-        disableEscapeKeyDown
-        fullScreen
-        open={open}
-        onClose={handleClose}
-        TransitionComponent={Transition}
-      >
-        <AppBar className="gamebardAppBarUpdate gameboardAppBar">
-          <Toolbar style={{ dispay: "flex", justifyContent: "space-between" }}>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={() => {
-                confirmHandleClickOpen();
-              }}
-              aria-label="close"
+      {sessionId && (
+        <Dialog
+          disableEscapeKeyDown
+          fullScreen
+          open={open}
+          onClose={handleClose}
+          TransitionComponent={Transition}
+        >
+          <AppBar className="gamebardAppBarUpdate gameboardAppBar">
+            <Toolbar
+              style={{ dispay: "flex", justifyContent: "space-between" }}
             >
-              <CloseIcon />
-            </IconButton>
-            <span className="text-center">{currentGame?.title}</span>
-            <span className="text-center">{timeCounter}</span>
-          </Toolbar>
-        </AppBar>
-        {currentGame && currentGame.gameType !== 4 && (
-          <Box
-            style={{
-              width: "100%",
-              height: "100%",
-              position: "relative",
-            }}
-          >
-            <iframe
-              className="gameframe"
-              title={currentGame.title}
-              src={`${API_URL}/Games/${
-                currentGame.baseFilePath
-              }?walletId=""&signature=""&game=${currentGame.bundleUrl}${
-                currentGame.runFile ? `&runfile=${currentGame.runFile}` : ""
-              }`}
-              width="100%"
-              height="100%"
-            />
-          </Box>
-        )}
-        {currentGame && currentGame.gameType === 4 && (
-          <Box
-            style={{
-              width: "100%",
-              height: "100%",
-              position: "relative",
-            }}
-          >
-            <iframe
-              className="gameframe"
-              title={currentGame.title}
-              src={currentGame.baseFilePath}
-              width="100%"
-              height="100%"
-            />
-          </Box>
-        )}
-      </Dialog>
+              <IconButton
+                edge="start"
+                color="inherit"
+                onClick={() => {
+                  confirmHandleClickOpen();
+                }}
+                aria-label="close"
+              >
+                <CloseIcon />
+              </IconButton>
+              <span className="text-center">{currentGame?.title}</span>
+              <span className="text-center">{timeCounter}</span>
+            </Toolbar>
+          </AppBar>
+          {currentGame && currentGame.gameType !== 4 && (
+            <Box
+              style={{
+                width: "100%",
+                height: "100%",
+                position: "relative",
+              }}
+            >
+              <iframe
+                className="gameframe"
+                title={currentGame.title}
+                src={`${API_URL}/Games/${
+                  currentGame.baseFilePath
+                }?walletId=""&signature=""&game=${currentGame.bundleUrl}${
+                  currentGame.runFile ? `&runfile=${currentGame.runFile}` : ""
+                }`}
+                width="100%"
+                height="100%"
+              />
+            </Box>
+          )}
+          {currentGame && currentGame.gameType === 4 && (
+            <Box
+              style={{
+                width: "100%",
+                height: "100%",
+                position: "relative",
+              }}
+            >
+              <iframe
+                className="gameframe"
+                title={currentGame.title}
+                src={currentGame.baseFilePath}
+                width="100%"
+                height="100%"
+              />
+            </Box>
+          )}
+        </Dialog>
+      )}
+
       <Dialog
         disableEscapeKeyDown
         open={confirm_open}

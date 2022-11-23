@@ -5,7 +5,11 @@ import Dashboard from "./Dashboard";
 import ScoreBoard from "./ScoreBoard";
 import GameBoard from "./GameBoard";
 import "./index.css";
-export default function MainContainer() {
+export default function MainContainer(props) {
+  const {
+    apiKey,
+    playerId
+  } = props;
   const [isStanding, setIsStanding] = useState(0);
   const [isParticipating, setIsParticipating] = useState(0);
   const [gameData, setGameData] = useState([]);
@@ -34,7 +38,9 @@ export default function MainContainer() {
     callback: handleParticipatingButton,
     gameId: gameId,
     gameData: gameData,
-    setGameId: setGameId
+    setGameId: setGameId,
+    apiKey: apiKey,
+    playerId: playerId
   }) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(GameTitle, null), /*#__PURE__*/React.createElement(Dashboard, {
     setGameId: setGameId,
     setGameData: setGameData,

@@ -5,6 +5,8 @@ import { v4 as uuid_v4 } from "uuid";
 import clsx from "clsx";
 import Backdrop from "@material-ui/core/Backdrop";
 import { makeStyles } from "@material-ui/styles";
+import toastr from "toastr";
+import "toastr/build/toastr.min.css";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
@@ -21,7 +23,7 @@ import Paper from "@material-ui/core/Paper";
 import Draggable from "react-draggable";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { API_URL, MINIMUM_PLAY_FOR_REWARD } from "../config";
-import { apiFetchDataWithSig } from "../helpers/apiFetchWrappers";
+import { apiFetchDataWithSig, fetchSDKApi } from "../helpers/apiFetchWrappers";
 import "./index.css";
 const useStyles = makeStyles(() => ({
   dosplayer: {
@@ -52,10 +54,13 @@ export default function GameBoard(props) {
     callback,
     gameData,
     gameId,
-    setGameId
+    setGameId,
+    apiKey,
+    playerId
   } = props;
   const [gameDataById, setGameDataById] = useState("");
-  const [playerId, setPlayerId] = useState(1);
+
+  // const [playerId, setPlayerId] = useState(1);
   const [open, setOpen] = useState(false);
   const [keyOpen, setKeyOpen] = useState(false);
   const [confirm_open, confirm_setOpen] = useState(false);
@@ -68,6 +73,13 @@ export default function GameBoard(props) {
   const [currentGame, setCurrentGame] = useState(null);
   const [keyImage, setKeyImage] = useState(null);
   const [sessionId, setSessionId] = useState(null);
+
+  // const handleErrorToast = (type, content) => {
+  //   if (type === "info") {
+  //     toastr.info(content);
+  //   }
+  // };
+
   const handleCloseBackdrop = () => {
     setLoading(false);
   };
@@ -144,6 +156,18 @@ export default function GameBoard(props) {
       //              has been reached.
     }, 1000);
     setElapsedTimeIntervalRef(interval);
+    if (apiKey === "" || apiKey === null) {
+      if (window.toastr) window.toastr.error("Please insert API key");else {
+        toastr.options = {
+          positionClass: "toast-top-right",
+          hideDuration: 300,
+          timeOut: 60000
+        };
+        toastr.clear();
+        setTimeout(() => toastr.success("Please insert API key"));
+        return;
+      }
+    }
     const options = {
       mode: "cors",
       body: JSON.stringify({
@@ -154,7 +178,19 @@ export default function GameBoard(props) {
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
-    const sessionIdResp = await apiFetchDataWithSig("ApiPlay/StartGame", "POST", options, headers);
+    const sessionIdResp = await fetchSDKApi("ApiPlay/StartGame", "POST", options, headers, apiKey, playerId);
+    if (sessionIdResp.text) {
+      if (window.toastr) window.toastr.error(`${sessionIdResp.text}`);else {
+        toastr.options = {
+          positionClass: "toast-top-right",
+          hideDuration: 300,
+          timeOut: 60000
+        };
+        toastr.clear();
+        setTimeout(() => toastr.error(`${sessionIdResp.text}`));
+        return;
+      }
+    }
     if (sessionIdResp) {
       setSessionId(sessionIdResp.sessionId);
     }
@@ -224,7 +260,7 @@ export default function GameBoard(props) {
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
-    const finishGameResponse = await apiFetchDataWithSig("ApiPlay/FinishGame", "POST", options, headers);
+    const finishGameResponse = await fetchSDKApi("ApiPlay/FinishGame", "POST", options, headers, apiKey, playerId);
     if (totalPlayedTime < Number(minimumTimeToPlay) * 60) {
       /*
       window.toastr.error(
@@ -311,9 +347,10 @@ export default function GameBoard(props) {
   }, /*#__PURE__*/React.createElement(CloseIcon, null)))), /*#__PURE__*/React.createElement("div", {
     style: {
       width: "100%",
-      height: "calc(100% - 65px)",
+      height: "100%",
+      // height: "calc(100% - 65px)",
       position: "relative",
-      marginTop: "0px"
+      marginTop: "65px"
     }
   }, currentGame?.joystickImage === undefined ? /*#__PURE__*/React.createElement("img", {
     alt: `${currentGame?.title}`,
@@ -335,7 +372,7 @@ export default function GameBoard(props) {
   })), /*#__PURE__*/React.createElement(Button, {
     onClick: continueGameHandle,
     className: "gameboardControlButton"
-  }, "Play")))), /*#__PURE__*/React.createElement(Dialog, {
+  }, "Play")))), sessionId && /*#__PURE__*/React.createElement(Dialog, {
     disableEscapeKeyDown: true,
     fullScreen: true,
     open: open,

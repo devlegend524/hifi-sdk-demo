@@ -6,17 +6,18 @@ import ScoreBoard from "./ScoreBoard";
 import GameBoard from "./GameBoard";
 import "./index.css";
 
-export default function MainContainer() {
+export default function MainContainer(props) {
+  const { apiKey, playerId } = props;
   const [isStanding, setIsStanding] = useState(0);
   const [isParticipating, setIsParticipating] = useState(0);
   const [gameData, setGameData] = useState([]);
   const [gameId, setGameId] = useState(1);
   const handleStandingButton = () => {
     setIsStanding(1 - isStanding);
-  }
+  };
   const handleParticipatingButton = () => {
-    setIsParticipating(1-isParticipating);
-  }
+    setIsParticipating(1 - isParticipating);
+  };
   return (
     <div
       style={{
@@ -35,11 +36,23 @@ export default function MainContainer() {
       }}
     >
       {isParticipating ? (
-        <GameBoard callback={handleParticipatingButton} gameId = {gameId} gameData = { gameData} setGameId = {setGameId}/>
+        <GameBoard
+          callback={handleParticipatingButton}
+          gameId={gameId}
+          gameData={gameData}
+          setGameId={setGameId}
+          apiKey={apiKey}
+          playerId={playerId}
+        />
       ) : (
         <>
           <GameTitle />
-          <Dashboard setGameId = { setGameId } setGameData = { setGameData } gameData = { gameData } gameId = { gameId }/>
+          <Dashboard
+            setGameId={setGameId}
+            setGameData={setGameData}
+            gameData={gameData}
+            gameId={gameId}
+          />
           <div
             style={{
               display: "flex",
@@ -72,7 +85,6 @@ export default function MainContainer() {
           {isStanding ? <ScoreBoard /> : ""}
         </>
       )}
-
     </div>
   );
 }
