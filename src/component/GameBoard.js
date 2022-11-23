@@ -393,11 +393,11 @@ export default function GameBoard(props) {
             <div
               style={{
                 width: "100%",
-                // height: "100%",
-                height: "calc(100% - 65px)",
+                height: "100%",
+                // height: "calc(100% - 65px)",
                 position: "relative",
-                marginTop: "0px",
-                // marginTop: "65px",
+                // marginTop: "0px",
+                marginTop: "65px",
               }}
             >
               {currentGame?.joystickImage === undefined ? (
