@@ -347,10 +347,11 @@ export default function GameBoard(props) {
   }, /*#__PURE__*/React.createElement(CloseIcon, null)))), /*#__PURE__*/React.createElement("div", {
     style: {
       width: "100%",
-      height: "100%",
-      // height: "calc(100% - 65px)",
+      // height: "100%",
+      height: "calc(100% - 65px)",
       position: "relative",
-      marginTop: "65px"
+      marginTop: "0px"
+      // marginTop: "65px",
     }
   }, currentGame?.joystickImage === undefined ? /*#__PURE__*/React.createElement("img", {
     alt: `${currentGame?.title}`,
