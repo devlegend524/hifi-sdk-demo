@@ -56,7 +56,7 @@ export const handleError = async response => {
 };
 export const apiFetchDataWithSig = async (url, method, existingOptions, existingheaders) => {
   const fetchURL = `${API_URL}/${url}`;
-  const headers = getSDKApiHeaderObject(existingheaders);
+  const headers = getWalletAuthHeaderObject(existingheaders);
   const options = existingOptions ?? {};
   options.method = `${method}`;
   options.headers = headers;

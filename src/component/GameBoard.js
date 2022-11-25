@@ -159,7 +159,7 @@ export default function GameBoard(props) {
   const confirmHandleClickOpen = () => {
     confirm_setOpen(true);
   };
-
+ // called when play game btn clicked
   const continueGameHandle = async () => {
     const startedTime = new Date();
     let interval = null;
@@ -179,6 +179,7 @@ export default function GameBoard(props) {
     }, 1000);
     setElapsedTimeIntervalRef(interval);
 
+    // check whether api key is empty or not
     if (apiKey === "" || apiKey === null) {
       if (window.toastr) window.toastr.error("Please insert API key");
       else {
@@ -193,6 +194,7 @@ export default function GameBoard(props) {
       }
     }
 
+    // making request
     const options = {
       mode: "cors",
       body: JSON.stringify({ gameId, playerId: playerId }),

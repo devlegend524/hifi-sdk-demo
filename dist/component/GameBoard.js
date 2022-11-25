@@ -139,6 +139,7 @@ export default function GameBoard(props) {
   const confirmHandleClickOpen = () => {
     confirm_setOpen(true);
   };
+  // called when play game btn clicked
   const continueGameHandle = async () => {
     const startedTime = new Date();
     let interval = null;
@@ -156,6 +157,8 @@ export default function GameBoard(props) {
       //              has been reached.
     }, 1000);
     setElapsedTimeIntervalRef(interval);
+
+    // check whether api key is empty or not
     if (apiKey === "" || apiKey === null) {
       if (window.toastr) window.toastr.error("Please insert API key");else {
         toastr.options = {
@@ -168,6 +171,8 @@ export default function GameBoard(props) {
         return;
       }
     }
+
+    // making request
     const options = {
       mode: "cors",
       body: JSON.stringify({
@@ -347,11 +352,11 @@ export default function GameBoard(props) {
   }, /*#__PURE__*/React.createElement(CloseIcon, null)))), /*#__PURE__*/React.createElement("div", {
     style: {
       width: "100%",
-      // height: "100%",
-      height: "calc(100% - 65px)",
+      height: "100%",
+      // height: "calc(100% - 65px)",
       position: "relative",
-      marginTop: "0px"
-      // marginTop: "65px",
+      // marginTop: "0px",
+      marginTop: "65px"
     }
   }, currentGame?.joystickImage === undefined ? /*#__PURE__*/React.createElement("img", {
     alt: `${currentGame?.title}`,
