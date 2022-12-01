@@ -337,9 +337,12 @@ export default function GameBoard(props) {
   };
   return (
     <div style={{ position: "relative" }}>
-      <video style={{ borderRadius: "16px" }} autoPlay loop muted>
-        <source src={`${API_URL}/${gameDataById.video}`} type="video/mp4" />
-      </video>
+      { gameDataById.video && (
+        <video style={{ borderRadius: "16px", maxWidth: "100%" }} autoPlay loop muted>
+          <source src={`${API_URL}/${gameDataById.video}`} type="video/mp4" />
+        </video>
+        )
+      }
       <button className="playGameButton" onClick={browserPlayGame}>
         Play Game
       </button>

@@ -295,9 +295,10 @@ export default function GameBoard(props) {
     style: {
       position: "relative"
     }
-  }, /*#__PURE__*/React.createElement("video", {
+  }, gameDataById.video && /*#__PURE__*/React.createElement("video", {
     style: {
-      borderRadius: "16px"
+      borderRadius: "16px",
+      maxWidth: "100%"
     },
     autoPlay: true,
     loop: true,
