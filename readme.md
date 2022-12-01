@@ -5,6 +5,10 @@ npm install --save hifisdkgames
 ```shell
 yarn add hifisdkgames
 ```
+```shell
+npx tailwind init
+```
+
 ### How to use 
 ```ts
 import React from 'react';
