@@ -13,7 +13,7 @@ function App() {
         </Link>
       </div>
       <Main
-        apiKey="4d30ef42c28719de1762c456181ee3cc6f25e704af2d04fd6dc25cdddf66510c"
+        apiKey="5f1d15201ccbb89806ad05e69ffe55d6119677e05c9031564198145eda72d837"
         playerId="123456789"
       />
     </div>
